@@ -8,7 +8,31 @@ function MyFirstApp() {
     (select) => select(coreDataStore).getEntityRecords("postType", "page"),
     []
   )
-  return <PagesList pages={pages} />
+  return (
+    <>
+      <PagesTable pages={pages} />
+      <PagesList pages={pages} />
+    </>
+  )
+}
+
+function PagesTable({ pages }) {
+  return (
+    <table className="wp-list-table widefat fixed striped table-view-list">
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        {pages?.map((page) => (
+          <tr key={page.id}>
+            <td>{decodeEntities(page.title.rendered)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
 }
 
 function PagesList({ pages }) {
