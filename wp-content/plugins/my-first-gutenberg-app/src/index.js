@@ -1,21 +1,26 @@
-import { render } from "@wordpress/element"
+import { useState, render } from "@wordpress/element"
 import { useSelect } from "@wordpress/data"
 import { store as coreDataStore } from "@wordpress/core-data"
 import { decodeEntities } from "@wordpress/html-entities"
+import { SearchControl } from "@wordpress/components"
 
 function MyFirstApp() {
+  const [searchTerm, setSearchTerm] = useState("")
   const pages = useSelect(
-    (select) =>
-      select(coreDataStore).getEntityRecords("postType", "page", {
-        per_page: 20,
-      }),
-    []
+    (select) => {
+      const query = {}
+      if (searchTerm) {
+        query.search = searchTerm
+      }
+      return select(coreDataStore).getEntityRecords("postType", "page", query)
+    },
+    [searchTerm]
   )
   return (
-    <>
+    <div>
+      <SearchControl onChange={setSearchTerm} value={searchTerm} />
       <PagesTable pages={pages} />
-      <PagesList pages={pages} />
-    </>
+    </div>
   )
 }
 
