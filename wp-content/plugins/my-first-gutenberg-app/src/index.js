@@ -5,7 +5,10 @@ import { decodeEntities } from "@wordpress/html-entities"
 
 function MyFirstApp() {
   const pages = useSelect(
-    (select) => select(coreDataStore).getEntityRecords("postType", "page"),
+    (select) =>
+      select(coreDataStore).getEntityRecords("postType", "page", {
+        per_page: 20,
+      }),
     []
   )
   return (
