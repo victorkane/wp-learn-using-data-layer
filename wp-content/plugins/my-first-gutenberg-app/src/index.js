@@ -89,9 +89,15 @@ function PagesTable({ hasResolved, pages }) {
 }
 
 export function EditPageForm({ pageId, onCancel, onSaveFinished }) {
+  const page = useSelect(
+    (select) =>
+      select(coreDataStore).getEntityRecord("postType", "page", pageId),
+    [pageId]
+  )
+  // console.log("pageIdit", page)
   return (
     <div className="my-gutenberg-form">
-      <TextControl value="" label="Page title:" />
+      <TextControl label="Page title:" value={page.title.rendered} />
       <div className="form-buttons">
         <Button onClick={onSaveFinished} variant="primary">
           Save
