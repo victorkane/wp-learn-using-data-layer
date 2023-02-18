@@ -1,8 +1,10 @@
-import { SearchControl, Spinner } from "@wordpress/components"
+import { SearchControl, Spinner, Button } from "@wordpress/components"
 import { useState, render } from "@wordpress/element"
 import { useSelect } from "@wordpress/data"
 import { store as coreDataStore } from "@wordpress/core-data"
 import { decodeEntities } from "@wordpress/html-entities"
+
+const PageEditButton = () => <Button variant="primary">Edit</Button>
 
 function MyFirstApp() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -49,6 +51,10 @@ function PagesTable({ hasResolved, pages }) {
         {pages?.map((page) => (
           <tr key={page.id}>
             <td>{decodeEntities(page.title.rendered)}</td>
+            <td>
+              {" "}
+              <PageEditButton pageId={page.id} />
+            </td>
           </tr>
         ))}
       </tbody>
