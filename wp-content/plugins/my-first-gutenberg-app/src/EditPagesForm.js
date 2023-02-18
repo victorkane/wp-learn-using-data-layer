@@ -1,7 +1,7 @@
-import { Button, Spinner, TextControl } from "@wordpress/components"
 import { useSelect } from "@wordpress/data"
 import { store as coreDataStore } from "@wordpress/core-data"
 import { useDispatch } from "@wordpress/data"
+import PageForm from "./PageForm"
 
 export function EditPageForm({ pageId, onCancel, onSaveFinished }) {
   const { page, lastError, isSaving, hasEdits } = useSelect(
@@ -42,37 +42,15 @@ export function EditPageForm({ pageId, onCancel, onSaveFinished }) {
     editEntityRecord("postType", "page", page.id, { title })
 
   return (
-    <div className="my-gutenberg-form">
-      <TextControl
-        label="Page title:"
-        value={page.title}
-        onChange={handleChange}
-      />
-      {lastError ? (
-        <div className="form-error">Error: {lastError.message}</div>
-      ) : (
-        false
-      )}
-      <div className="form-buttons">
-        <Button
-          onClick={handleSave}
-          variant="primary"
-          disabled={!hasEdits || isSaving}
-        >
-          {isSaving ? (
-            <>
-              <Spinner />
-              Saving
-            </>
-          ) : (
-            "Save"
-          )}
-        </Button>
-        <Button onClick={onCancel} variant="tertiary" disabled={isSaving}>
-          Cancel
-        </Button>
-      </div>
-    </div>
+    <PageForm
+      title={page.title}
+      onChangeTitle={handleChange}
+      hasEdits={hasEdits}
+      lastError={lastError}
+      isSaving={isSaving}
+      onCancel={onCancel}
+      onSave={handleSave}
+    />
   )
 }
 
