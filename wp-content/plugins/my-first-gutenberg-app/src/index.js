@@ -8,6 +8,7 @@ import {
 import { useState, render } from "@wordpress/element"
 import { useSelect } from "@wordpress/data"
 import { store as coreDataStore } from "@wordpress/core-data"
+import { useDispatch } from "@wordpress/data"
 import { decodeEntities } from "@wordpress/html-entities"
 
 function PageEditButton({ pageId }) {
@@ -91,13 +92,20 @@ function PagesTable({ hasResolved, pages }) {
 export function EditPageForm({ pageId, onCancel, onSaveFinished }) {
   const page = useSelect(
     (select) =>
-      select(coreDataStore).getEntityRecord("postType", "page", pageId),
+      select(coreDataStore).getEditedEntityRecord("postType", "page", pageId),
     [pageId]
   )
   // console.log("pageIdit", page)
+  const { editEntityRecord } = useDispatch(coreDataStore)
+  const handleChange = (title) =>
+    editEntityRecord("postType", "page", pageId, { title })
   return (
     <div className="my-gutenberg-form">
-      <TextControl label="Page title:" value={page.title.rendered} />
+      <TextControl
+        label="Page title:"
+        value={page.title}
+        onChange={handleChange}
+      />
       <div className="form-buttons">
         <Button onClick={onSaveFinished} variant="primary">
           Save
