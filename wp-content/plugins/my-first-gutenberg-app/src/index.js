@@ -99,6 +99,11 @@ export function EditPageForm({ pageId, onCancel, onSaveFinished }) {
   const { editEntityRecord } = useDispatch(coreDataStore)
   const handleChange = (title) =>
     editEntityRecord("postType", "page", pageId, { title })
+  const { saveEditedEntityRecord } = useDispatch(coreDataStore)
+  const handleSave = async () => {
+    await saveEditedEntityRecord("postType", "page", pageId)
+    onSaveFinished()
+  }
   return (
     <div className="my-gutenberg-form">
       <TextControl
@@ -107,7 +112,7 @@ export function EditPageForm({ pageId, onCancel, onSaveFinished }) {
         onChange={handleChange}
       />
       <div className="form-buttons">
-        <Button onClick={onSaveFinished} variant="primary">
+        <Button onClick={handleSave} variant="primary">
           Save
         </Button>
         <Button onClick={onCancel} variant="tertiary">
