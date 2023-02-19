@@ -1,6 +1,7 @@
 import { Spinner } from "@wordpress/components"
 import { decodeEntities } from "@wordpress/html-entities"
 import PageEditButton from "./PageEditButton"
+import DeletePageButton from "./DeletePageButton"
 
 function PagesTable({ hasResolved, pages }) {
   if (!hasResolved) {
@@ -23,6 +24,7 @@ function PagesTable({ hasResolved, pages }) {
             <td>
               {" "}
               <PageEditButton pageId={page.id} />
+              <DeletePageButton pageId={page.id} />
             </td>
           </tr>
         ))}
