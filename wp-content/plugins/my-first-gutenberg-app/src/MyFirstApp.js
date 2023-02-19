@@ -4,6 +4,7 @@ import { useSelect } from "@wordpress/data"
 import { store as coreDataStore } from "@wordpress/core-data"
 import PagesTable from "./PagesTable"
 import CreatePageButton from "./CreatePageButton"
+import Notifications from "./Notifications"
 
 function MyFirstApp() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -31,6 +32,7 @@ function MyFirstApp() {
         <CreatePageButton />
       </div>
       <PagesTable hasResolved={hasResolved} pages={pages} />
+      <Notifications />
     </div>
   )
 }
