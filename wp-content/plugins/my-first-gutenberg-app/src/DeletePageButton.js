@@ -5,8 +5,8 @@ import { useDispatch } from "@wordpress/data"
 import { useSelect } from "@wordpress/data"
 
 const DeletePageButton = ({ pageId }) => {
-  // fire error as test!
-  pageId = pageId * 1000
+  // fire error as test for snackbar notification!
+  // pageId = pageId * 1000
 
   const { createSuccessNotice, createErrorNotice } = useDispatch(noticesStore)
 
